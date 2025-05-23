@@ -12,7 +12,7 @@ export default function AboutPage() {
             Our Mission
           </h2>
           <p>
-            Welcome to our blog! This platform is dedicated to sharing
+            Welcome to mine blog! This platform is dedicated to sharing
             insightful articles, tutorials, and stories on web development,
             technology, and creativity. Our goal is to inspire and educate
             readers of all backgrounds.
