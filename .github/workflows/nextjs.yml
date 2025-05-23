@@ -29,6 +29,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - name: Checkout
         uses: actions/checkout@v4
       - name: Detect package manager
