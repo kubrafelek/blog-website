@@ -8,7 +8,7 @@ import "./src/env.js";
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ['https://blog-website-hazel-three.vercel.app'],
+        domains: ['blog-website-hazel-three.vercel.app'],
     },
 }
 
