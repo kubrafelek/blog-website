@@ -48,7 +48,7 @@ export default function AdminPostsPage() {
   }
 
   if (!session || session.user.role !== "ADMIN") {
-    router.push("/admin/login");
+    void router.push("/admin/login");
     return null;
   }
 
@@ -105,7 +105,7 @@ export default function AdminPostsPage() {
                   : "bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-200"
               }`}
             >
-              All Posts ({data?.totalCount || 0})
+              All Posts ({data?.totalCount ?? 0})
             </button>
             <button
               onClick={() => setFilter("published")}

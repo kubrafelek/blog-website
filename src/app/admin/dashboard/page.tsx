@@ -21,13 +21,8 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (status === "loading") return;
 
-    if (!session) {
-      router.push("/admin/login");
-      return;
-    }
-
-    if (session.user.role !== "ADMIN") {
-      router.push("/");
+    if (!session || session.user.role !== "ADMIN") {
+      void router.push("/admin/login");
       return;
     }
 
@@ -43,7 +38,7 @@ export default function AdminDashboard() {
   }
 
   const handleSignOut = () => {
-    signOut({ callbackUrl: "/admin/login" });
+    void signOut({ callbackUrl: "/admin/login" });
   };
 
   return (
@@ -69,7 +64,7 @@ export default function AdminDashboard() {
               </Link>
               <div className="flex items-center space-x-2">
                 <span className="text-sm text-gray-600 dark:text-gray-400">
-                  {session?.user?.name || session?.user?.email}
+                  {session?.user?.name ?? session?.user?.email}
                 </span>
                 <button
                   onClick={handleSignOut}
@@ -88,7 +83,7 @@ export default function AdminDashboard() {
           {/* Welcome Message */}
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-              Welcome back, {session?.user?.name || "Admin"}!
+              Welcome back, {session?.user?.name ?? "Admin"}!
             </h2>
             <p className="mt-2 text-gray-600 dark:text-gray-400">
               Manage your blog posts and content from here.
@@ -111,7 +106,7 @@ export default function AdminDashboard() {
                         Total Posts
                       </dt>
                       <dd className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                        {stats?.totalPosts || 0}
+                        {stats?.totalPosts ?? 0}
                       </dd>
                     </dl>
                   </div>
@@ -133,7 +128,7 @@ export default function AdminDashboard() {
                         Published
                       </dt>
                       <dd className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                        {stats?.publishedPosts || 0}
+                        {stats?.publishedPosts ?? 0}
                       </dd>
                     </dl>
                   </div>
@@ -155,7 +150,7 @@ export default function AdminDashboard() {
                         Drafts
                       </dt>
                       <dd className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                        {stats?.draftPosts || 0}
+                        {stats?.draftPosts ?? 0}
                       </dd>
                     </dl>
                   </div>
@@ -226,7 +221,7 @@ export default function AdminDashboard() {
                       <div className="flex items-center justify-between">
                         <div className="min-w-0 flex-1">
                           <h4 className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
-                            {post.title}
+                            {post.title ?? "Untitled"}
                           </h4>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
                             {formatDate(post.createdAt)} •{" "}

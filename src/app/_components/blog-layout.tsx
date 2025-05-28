@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface BlogLayoutProps {
   children: ReactNode;
@@ -67,7 +67,7 @@ export function BlogLayout({ children, title, description }: BlogLayoutProps) {
       </header>
 
       {/* Hero Section (if title/description provided) */}
-      {(title || description) && (
+      {(title ?? description) && (
         <section className="bg-white py-16 dark:bg-gray-900">
           <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
             {title && (

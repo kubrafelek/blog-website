@@ -23,10 +23,10 @@ export default function AboutPage() {
             About the Author
           </h2>
           <p>
-            Hi! I'm the creator and sole author of this blog. With a passion for
-            building modern web applications and a love for teaching, I strive
-            to make complex topics accessible and enjoyable. Thank you for being
-            part of this journey!
+            Hi! I&apos;m the creator and sole author of this blog. With a
+            passion for building modern web applications and a love for
+            teaching, I strive to make complex topics accessible and enjoyable.
+            Thank you for being part of this journey!
           </p>
         </section>
       </div>

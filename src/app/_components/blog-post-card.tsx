@@ -21,7 +21,7 @@ interface BlogPostCardProps {
 
 export function BlogPostCard({ post }: BlogPostCardProps) {
   const displayExcerpt =
-    post.excerpt || truncateText(post.content.replace(/[#*`\[\]]/g, ""), 150);
+    post.excerpt ?? truncateText(post.content.replace(/[#*`\[\]]/g, ""), 150);
   const publishDate = post.publishedAt ? formatDate(post.publishedAt) : "Draft";
   const readTime = Math.ceil(post.content.length / 1000);
 
@@ -33,7 +33,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
           <div className="aspect-video w-full overflow-hidden">
             <Image
               src={post.featuredImage}
-              alt={post.title}
+              alt={post.title ?? "Untitled"}
               width={400}
               height={225}
               className="h-full w-full object-cover transition-transform group-hover:scale-105"
@@ -53,7 +53,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
             href={`/posts/${post.slug}`}
             className="text-xl font-semibold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400"
           >
-            {post.title}
+            {post.title ?? "Untitled"}
           </Link>
         </h3>
 
@@ -70,7 +70,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
               {post.createdBy.image ? (
                 <Image
                   src={post.createdBy.image}
-                  alt={post.createdBy.name || "Author"}
+                  alt={post.createdBy.name ?? "Author"}
                   width={24}
                   height={24}
                   className="rounded-full"
@@ -78,12 +78,12 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
               ) : (
                 <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600">
                   <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
-                    {post.createdBy.name?.charAt(0)?.toUpperCase() || "A"}
+                    {post.createdBy.name?.charAt(0)?.toUpperCase() ?? "A"}
                   </span>
                 </div>
               )}
               <span className="font-medium">
-                {post.createdBy.name || "Anonymous"}
+                {post.createdBy.name ?? "Anonymous"}
               </span>
             </div>
           </div>
@@ -93,7 +93,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
             <span>{readTime} min read</span>
 
             {/* Date */}
-            <time dateTime={post.publishedAt?.toISOString() || ""}>
+            <time dateTime={post.publishedAt?.toISOString() ?? ""}>
               {publishDate}
             </time>
           </div>

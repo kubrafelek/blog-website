@@ -1,4 +1,3 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -38,8 +37,8 @@ export const authConfig = {
           return null;
         }
 
-        const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@yourblog.com";
-        const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin123";
+        const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "admin@yourblog.com";
+        const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "admin123";
 
         console.log("🔑 Expected credentials:", {
           email: ADMIN_EMAIL,
@@ -89,7 +88,7 @@ export const authConfig = {
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "google") {
-        const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@yourblog.com";
+        const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "admin@yourblog.com";
 
         if (user.email !== ADMIN_EMAIL) {
           return false;
@@ -98,7 +97,7 @@ export const authConfig = {
         await db.user.upsert({
           where: { email: user.email },
           create: {
-            email: user.email!,
+            email: user.email,
             name: user.name,
             image: user.image,
             role: "ADMIN",
@@ -123,12 +122,23 @@ export const authConfig = {
     },
 
     async session({ session, token }) {
+      const user = await db.user.findUnique({
+        where: { id: session.user.id }
+      });
+
+      const name = user?.name ?? "Anonymous";
+      const email = user?.email ?? "";
+      const image = user?.image ?? "/default-avatar.jpg";
+
       return {
         ...session,
         user: {
           ...session.user,
-          id: token.id as string,
-          role: token.role as string,
+          id: String(token.id),
+          role: String(token.role),
+          name,
+          email,
+          image,
         },
       };
     },

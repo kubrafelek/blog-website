@@ -35,7 +35,7 @@ export default function AdminLoginPage() {
           setError("Access denied. Admin privileges required.");
         }
       }
-    } catch (error) {
+    } catch {
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
       if (result?.error) {
         setError("Google sign-in failed");
       }
-    } catch (error) {
+    } catch {
       setError("An error occurred with Google sign-in");
     } finally {
       setIsLoading(false);

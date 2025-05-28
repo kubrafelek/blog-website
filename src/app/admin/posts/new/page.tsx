@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { api } from "~/trpc/react";
+import Image from "next/image";
 
 export default function NewPostPage() {
   const { data: session, status } = useSession();
@@ -176,9 +177,11 @@ export default function NewPostPage() {
             </div>
             {featuredImage && (
               <div className="mt-4">
-                <img
+                <Image
                   src={featuredImage}
                   alt="Featured image preview"
+                  width={500}
+                  height={300}
                   className="h-48 w-full rounded-lg object-cover"
                 />
               </div>
@@ -258,7 +261,18 @@ You can use Markdown formatting:
                 type="button"
                 onClick={() => {
                   setPublished(false);
-                  handleSubmit(new Event("submit") as any);
+                  if (!title.trim() || !content.trim()) {
+                    alert("Title and content are required");
+                    return;
+                  }
+                  setIsLoading(true);
+                  createPost.mutate({
+                    title: title.trim(),
+                    content: content.trim(),
+                    excerpt: excerpt.trim() || undefined,
+                    featuredImage: featuredImage.trim() || undefined,
+                    published: false,
+                  });
                 }}
                 disabled={isLoading}
                 className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
