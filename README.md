@@ -152,7 +152,7 @@ Configure your Google OAuth app to allow only your admin email address.
 
 Our editor supports full Markdown formatting:
 
-````markdown
+```markdown
 # Heading 1
 
 ## Heading 2
@@ -178,7 +178,7 @@ _Italic text_
 | Table | Header |
 | ----- | ------ |
 | Cell  | Data   |
-````
+```
 
 ## 🏗 Architecture
 

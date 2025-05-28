@@ -4,7 +4,12 @@
  */
 import "./src/env.js";
 
-/** @type {import("next").NextConfig} */
-const config = {};
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    reactStrictMode: true,
+    images: {
+        domains: ['blog-website-hazel-three.vercel.app'],
+    },
+}
 
-export default config;
+module.exports = nextConfig
