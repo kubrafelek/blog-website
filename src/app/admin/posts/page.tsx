@@ -22,7 +22,7 @@ export default function AdminPostsPage() {
 
   const deletePost = api.post.delete.useMutation({
     onSuccess: () => {
-      refetch();
+      void refetch();
     },
     onError: (error) => {
       alert(`Error: ${error.message}`);
@@ -31,7 +31,7 @@ export default function AdminPostsPage() {
 
   const togglePublish = api.post.togglePublish.useMutation({
     onSuccess: () => {
-      refetch();
+      void refetch();
     },
     onError: (error) => {
       alert(`Error: ${error.message}`);
@@ -58,12 +58,12 @@ export default function AdminPostsPage() {
         `Are you sure you want to delete "${title}"? This action cannot be undone.`,
       )
     ) {
-      deletePost.mutate({ id });
+      void deletePost.mutate({ id });
     }
   };
 
   const handleTogglePublish = (id: number) => {
-    togglePublish.mutate({ id });
+    void togglePublish.mutate({ id });
   };
 
   return (

@@ -19,12 +19,8 @@ export const metadata: Metadata = {
   description: "Edit an existing blog post",
 };
 
-export default async function EditPostPage({
-  params,
-  searchParams,
-}: PageProps) {
+export default async function EditPostPage({ params }: PageProps) {
   const { id } = await params;
-  await searchParams; // Await searchParams even if not used
 
   // Validate postId
   if (isNaN(parseInt(id)) || parseInt(id) <= 0) {
@@ -38,9 +34,7 @@ export default async function EditPostPage({
     notFound();
   }
 
-  const session = (await getServerSession(
-    authConfig,
-  )) as unknown as Session | null;
+  const session = getServerSession(authConfig) as unknown as Session | null;
   if (!session || session.user?.role !== "ADMIN") {
     redirect("/admin/login");
   }
